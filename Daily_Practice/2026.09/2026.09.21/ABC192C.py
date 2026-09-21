@@ -16,5 +16,24 @@ import sys
 # sys.setrecursionlimit(10**9)
 from math import gcd, log2, log10
 from functools import lru_cache, reduce 
+ 
+
+def calc(n):
+    g1 = int("".join(reversed(sorted(str(n)))))
+    g2 = int("".join(sorted(str(n))))
+
+    return g1 - g2 
 
 
+def main():
+    N, K = map(int, input().split())
+
+    term = N
+
+    for i in range(K):
+        term = calc(term)
+
+    return term
+
+
+print(main())
