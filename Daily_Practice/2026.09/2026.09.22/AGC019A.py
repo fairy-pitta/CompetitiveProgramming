@@ -18,3 +18,20 @@ from math import gcd, log2, log10
 from functools import lru_cache, reduce 
 
 
+def main():
+    Q,H,S,D = map(int, input().split())
+    N = int(input())
+    # 0.25と0.5はどうせ1にして使わないといけない
+    one_litre = min(Q*4, H*2, S)
+
+    cost = 0
+    if one_litre * 2 > D:
+        cost += (N // 2) * D
+        cost += (N % 2) * one_litre 
+
+    else:
+        cost += one_litre * N
+
+    print(cost)
+
+main()

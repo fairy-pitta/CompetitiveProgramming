@@ -17,4 +17,20 @@ import sys
 from math import gcd, log2, log10
 from functools import lru_cache, reduce 
 
+def main():
+    N = int(input())
+    t1 = 0
+    t2 = 0
+    for _ in range(N):
+        a,b = map(int, input().split())
+        t1 += a
+        t2 += b
 
+    if t1 > t2:
+        print("Takahashi")
+    elif t2 > t1:
+        print("Aoki")
+    else:
+        print("Draw")
+
+main()

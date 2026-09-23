@@ -18,3 +18,23 @@ from math import gcd, log2, log10
 from functools import lru_cache, reduce 
 
 
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+    ruiseki = []
+    for i in range(N):
+        if i == 0:
+            ruiseki.append(A[i])
+        else:
+            ruiseki.append(ruiseki[i-1] + A[i])
+
+    sum_A = ruiseki[-1]
+    ans = 10**18
+
+    for j in range(N-1):
+        diff = abs(ruiseki[j] - (sum_A - ruiseki[j]))
+        ans = min(ans, diff)
+
+    print(ans)
+
+main()

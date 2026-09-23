@@ -18,3 +18,9 @@ from math import gcd, log2, log10
 from functools import lru_cache, reduce 
 
 
+def main():
+    N = int(input())
+    ans = "".join([str(N) for _ in range(N)])
+    print(ans)
+
+main()
