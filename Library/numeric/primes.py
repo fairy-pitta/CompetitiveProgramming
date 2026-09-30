@@ -17,3 +17,10 @@ def Eratosthenes(N: int) -> list:
             q += p
         
     return isprime
+
+# 1 から N までの素数を列挙して返す
+# 真偽リストではなく素数そのものが欲しいときに使う
+
+def primes_list(N: int) -> list:
+    isprime = Eratosthenes(N)
+    return [i for i in range(N + 1) if isprime[i]]

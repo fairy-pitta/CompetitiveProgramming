@@ -1,4 +1,4 @@
-from numpy import base_repr
+# numpy が使える環境なら base_repr が早い
 # digits = base_repr(int, base)
 # int = int(digits, base)
 # 2 <= base <= 36

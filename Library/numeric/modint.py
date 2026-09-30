@@ -1,7 +1,7 @@
 # https://qiita.com/wotsushi/items/c936838df992b706084c
 
-MOD = 998,244,353
-# MOD = 1,000,000,007
+MOD = 998244353
+# MOD = 1000000007
 
 class ModInt:
     def __init__(self, x):

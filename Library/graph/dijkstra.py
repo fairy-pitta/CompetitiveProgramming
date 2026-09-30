@@ -44,19 +44,4 @@ def dijkstra(s, N, graph):
                 dist[v2] = dist[v] + cost 
                 heap_q.push((dist[v2], v2))
     
-    return dist 
-
-v, e, r = ismap()
-graph = isgraph(v)
-for _ in range(e):
-    s, g, c = ismap()
-    graph[s].append((g, c))
-
-d = dijkstra(r, v, graph)
-print(d)
-
-
-
-
-    
-
+    return dist

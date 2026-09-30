@@ -1,4 +1,5 @@
-# ABC249C
+# bit全探索 (product で True/False の直積を回す) の実装例
+# 題材: ABC249C https://atcoder.jp/contests/abc249/tasks/abc249_c
 
 from collections import Counter
 from itertools import product 

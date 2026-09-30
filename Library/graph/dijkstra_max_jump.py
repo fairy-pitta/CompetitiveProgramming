@@ -2,9 +2,6 @@
 # can recreate the path after distance is clarified 
 
 
-from string import ascii_lowercase
-li = list(ascii_lowercase)
-
 import heapq 
 
 def ismap(): return map(int, input().split())
@@ -68,38 +65,3 @@ def get_path(t, dist):
         t = dist[t][2]
     path.reverse()
     return path
-
-
-# s = list(input())
-# for i in range(len(s)):
-#     s[i] = li.index(s[i]) + 1
-# # print(s)
-# graph = [[] for _ in range(len(s))]
-# for j in range(len(s)):
-#     for k in range(len(s)):
-#         if k != j:
-#             graph[j].append([k, abs(s[j] - s[k])])
-# # print(graph)
-# d = dijkstra(0, len(s), graph)
-# longest_path = get_path(len(s)-1, d)
-# print(d[-1][0], d[-1][1] + 1)
-# print(*list(map(lambda x: x+1, longest_path)))
-
-for _ in range(int(input())):
-    s = list(input())
-    for i in range(len(s)):
-        s[i] = li.index(s[i]) + 1
-    # print(s)
-    graph = [[] for _ in range(len(s))]
-    for j in range(len(s)):
-        for k in range(len(s)):
-            if k != j:
-                graph[j].append([k, abs(s[j] - s[k])])
-    # print(graph)
-    d = dijkstra(0, len(s), graph)
-    longest_path = get_path(len(s)-1, d)
-    print(d[-1][0], d[-1][1] + 1)
-    print(*list(map(lambda x: x+1, longest_path)))
-
-
-
