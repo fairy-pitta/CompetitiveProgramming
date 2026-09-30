@@ -18,3 +18,11 @@ from math import gcd, log2, log10
 from functools import lru_cache, reduce 
 
 
+def main():
+    N, K = map(int, input().split())
+    p = sorted(list(map(int, input().split())))
+
+    print(sum(p[:K]))
+    return
+
+main()

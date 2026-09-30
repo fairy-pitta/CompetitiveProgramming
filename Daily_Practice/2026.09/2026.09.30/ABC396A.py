@@ -18,3 +18,17 @@ from math import gcd, log2, log10
 from functools import lru_cache, reduce 
 
 
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+    flag = False 
+    for i in range(N-2):
+        if A[i] == A[i+1] == A[i+2]:
+            flag = True 
+
+    if flag:
+        print("Yes")
+    else:
+        print("No")
+
+main()
