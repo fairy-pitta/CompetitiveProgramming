@@ -18,3 +18,26 @@ from math import gcd, log2, log10
 from functools import lru_cache, reduce 
 
 
+def main():
+    N, K = map(int, input().split())
+    A = list(map(int, input().split()))
+    B = set(list(map(int, input().split())))
+
+
+    food = []
+    max_oishisa = max(A)
+    for i in range(N):
+        if A[i] == max_oishisa:
+            food.append(i)
+
+    flag = False
+    for j in food:
+        if j+1 in B:
+            flag = True
+
+    if flag:
+        print("Yes")
+    else:
+        print("No")
+
+main()

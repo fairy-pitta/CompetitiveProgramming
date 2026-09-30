@@ -18,3 +18,27 @@ from math import gcd, log2, log10
 from functools import lru_cache, reduce 
 
 
+def main():
+    s = set(list(input()))
+
+    if ("N" in s) and not ("S" in s): 
+        print("No")
+        return
+    if ("S" in s) and not ("N" in s): 
+        print("No")
+        return
+
+    if ("W" in s) and not ("E" in s):
+        print("No")
+        return
+    
+    if ("E" in s) and not ("W" in s): 
+        print("No")
+        return 
+
+    print("Yes")
+    return 
+
+main()
+
+

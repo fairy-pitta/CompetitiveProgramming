@@ -18,3 +18,7 @@ from math import gcd, log2, log10
 from functools import lru_cache, reduce 
 
 
+def main():
+    N,D,P = map(int, input().split())
+    F = sorted(list(map(int, input().split())))
+    

@@ -18,3 +18,32 @@ from math import gcd, log2, log10
 from functools import lru_cache, reduce 
 
 
+def main():
+    N, M, T = map(int, input().split())
+    A = [0] + list(map(int, input().split()))
+    bonus = defaultdict(int)
+    for k in range(M):
+        x,y = map(int, input().split())
+        bonus[x] = y
+
+    print(A)
+    room = 1
+
+    while True:
+        if room == N:
+            break
+        if T < A[room]:
+            break 
+        T -= A[room]
+        room += 1
+        T += bonus[room]
+        # print(T, room, bonus)
+
+    if room == N:
+        print("Yes")
+    else:
+        print("No")
+
+main()
+
+        
