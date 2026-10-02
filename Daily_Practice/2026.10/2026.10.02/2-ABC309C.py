@@ -46,3 +46,29 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+
+def main():
+    N, K = ismap()
+    change = defaultdict(int)  
+    total = 0
+    for _ in range(N):
+        a, b = ismap()
+        change[a+1] -= b      
+        total += b
+
+    if total <= K:         
+        print(1)
+        return
+
+    ruiseki = total
+    for day in sorted(change):  # 錠数が変化する日だけ見れば十分（座標圧縮）
+        ruiseki += change[day]
+        if ruiseki <= K:
+            print(day)
+            return
+
+    return
+
+
+main()

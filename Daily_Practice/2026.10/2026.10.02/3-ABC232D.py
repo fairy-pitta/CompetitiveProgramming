@@ -46,3 +46,41 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    H, W = ismap()
+    grid = []
+    for _ in range(H):
+        r = input()
+        grid.append(r)
+
+    start = (0, 0)
+    # 下か右しか行けない
+    # いけるところにseenをつけていき、dequeueに追加していくBFS
+    seen = [[False] * W for _ in range(H)]
+    dist = [[0] * W for _ in range(H)]
+
+    seen[0][0] = True
+    dist[0][0] = 1          # マス (0,0) 自身を 1 歩目として数える
+    q = deque([start])
+    ans = 1
+
+    while q:
+        h, w = q.popleft()
+        ans = max(ans, dist[h][w])
+        for nh, nw in ((h + 1, w), (h, w + 1)):   # 下・右のみ
+            if nh >= H or nw >= W:
+                continue
+            if grid[nh][nw] == "#":
+                continue
+            if seen[nh][nw]:
+                continue
+            seen[nh][nw] = True
+            dist[nh][nw] = dist[h][w] + 1
+            q.append((nh, nw))
+
+    print(ans)
+    return
+
+
+main()
