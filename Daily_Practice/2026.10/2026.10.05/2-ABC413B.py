@@ -46,3 +46,19 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+
+def main():
+    N = int(input())
+    S = [input() for _ in range(N)]
+    pool = set()
+    for i in range(N):
+        for j in range(N):
+            if i == j:
+                continue
+            candidate = S[i]+S[j]
+            pool.add(candidate)
+
+    print(len(pool))
+
+main()

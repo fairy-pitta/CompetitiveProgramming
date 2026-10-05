@@ -46,3 +46,47 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+
+def main():
+    input = sys.stdin.readline
+    N = int(input())
+
+    G = isgraph(N + 1)
+    for _ in range(N - 1):
+        u, v = map(int, input().split())
+        G[u].append(v)
+        G[v].append(u)
+
+    A = [0] + list(map(int, input().split()))  
+
+    ans = [""] * (N + 1)
+    cnt = defaultdict(int)   # 現在のパス上に、その値が何個あるか
+    dup = 0               
+
+    ## (頂点, 親, True=入る / False=出る)
+    stack = [(1, 0, True)]
+    while stack:
+        v, parent, entering = stack.pop()
+
+        if entering:
+            cnt[A[v]] += 1
+            if cnt[A[v]] == 2:          # 1→2 になった瞬間だけ加算
+                dup += 1
+            ans[v] = "Yes" if dup > 0 else "No"
+
+            stack.append((v, parent, False)) 
+            for nxt in G[v]:
+                if nxt != parent:
+                    stack.append((nxt, v, True))
+        else:
+            if cnt[A[v]] == 2:          # 2→1 に戻る瞬間だけ減算
+                dup -= 1
+            cnt[A[v]] -= 1
+
+    print("\n".join(ans[1:]))
+
+    return
+
+
+main()

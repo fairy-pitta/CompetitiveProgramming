@@ -46,3 +46,23 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+
+def main():
+    S = input()
+    flag = True 
+
+    for i in range(len(S)):
+        if i%2:
+            if S[i].islower():
+                flag = False 
+        else:
+            if not S[i].islower():
+                flag = False 
+
+    if flag:
+        print("Yes")
+    else:
+        print("No")
+
+main()
