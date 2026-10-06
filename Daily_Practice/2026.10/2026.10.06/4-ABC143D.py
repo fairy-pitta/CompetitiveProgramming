@@ -46,3 +46,26 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N = int(input())
+    L = sorted(list(map(int, input().split())))
+
+    # 2本決め打ちした時、ありえる長さは
+    # abs(a-b) < l < a+b
+    # 結構計算量ギリかも、O(n2)でループ回してにぶたんでlogN
+    # そもそも下も見ると重複しちゃうから見るの上だけでいい
+
+    ans = 0
+    for i in range(N):
+        for j in range(i+1, N):
+            upper = bisect_left(L, L[i]+L[j])
+            ans += upper - j - 1
+            #jのぶんは引いておく
+
+    print(ans)
+    return 
+
+main()
+
+

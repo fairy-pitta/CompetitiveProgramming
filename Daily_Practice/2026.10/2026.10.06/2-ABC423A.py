@@ -46,3 +46,13 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+
+def main():
+    x, c = map(int, input().split())
+    base_fee = 1000 + c
+    num = x // base_fee 
+    print(num*1000)
+    #print(base_fee, num)
+    return 
+main()

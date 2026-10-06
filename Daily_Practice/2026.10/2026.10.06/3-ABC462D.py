@@ -46,3 +46,42 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+from operator import mul
+from functools import reduce
+
+def cmb(n,r):
+    if n <= 1: return 0
+    r = min(n-r,r)
+    if r == 0: return 1
+    nume = reduce(mul, range(n, n - r, -1))
+    denom = reduce(mul, range(1, r + 1))
+    return nume // denom
+
+def main():
+    N, D = map(int, input().split())
+    maximum = 10 ** 6 + 2 
+    imos = [0] * maximum 
+
+    for _ in range(N):
+        s, t = map(int, input().split())
+        r = t - D 
+
+        if s <= r: 
+            imos[s] += 1 
+            imos[r+1] -= 1 
+
+    ans = 0
+    cnt = 0
+
+    for i in range(maximum):
+        cnt += imos[i]
+        ans += cmb(cnt, 2)
+
+    print(ans)
+    return 
+
+main()
+
+
+

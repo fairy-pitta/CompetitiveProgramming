@@ -46,3 +46,12 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+
+def main():
+    s1, s2, s3 = map(str, input().split())
+    ans = s1[0] + s2[0] + s3[0]
+    print(ans.upper())
+    return 
+
+main()
