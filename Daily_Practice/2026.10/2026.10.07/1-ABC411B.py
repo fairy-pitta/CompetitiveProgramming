@@ -46,3 +46,19 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N = isint()
+    D = list(map(int, input().split()))
+    r = [0]
+    for i in range(N-1):
+        r.append(r[-1]+D[i])
+
+    for start in range(N):
+        ans = []
+        for end in range(start+1, N):
+            ans.append(r[end] - r[start])
+        print(*ans)
+    return
+
+main()

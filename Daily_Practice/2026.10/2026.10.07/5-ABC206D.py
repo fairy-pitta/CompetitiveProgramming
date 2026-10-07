@@ -46,3 +46,15 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+    pool = set()
+    for i in range(N//2):
+        if A[i] != A[N-i-1]:
+            pool.add(A[i])
+    print(len(pool)-1 if len(pool) > 1 else len(pool))
+    return 
+main()
+
