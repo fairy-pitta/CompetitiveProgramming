@@ -46,3 +46,42 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    input = sys.stdin.readline
+    N = int(input())
+
+    # 3次元だけど、やることは2次元累積和の拡張
+    # 各x層で(y,z)平面の2次元累積和を作って、それをx方向に足し込むだけ
+    # 入力は A[x][y][z] = x層目・y行目・z列目 の順で来る
+
+    S = [[[0] * (N+1) for _ in range(N+1)] for _ in range(N+1)]
+
+    for x in range(1, N+1):
+        for y in range(1, N+1):
+            A = list(map(int, input().split()))
+            acc = 0
+            for z in range(1, N+1):
+                acc += A[z-1]
+                # acc が行方向、S[x][y-1][z] で層内の2次元累積和になる
+                # さらに S[x-1][y][z] を足して、ダブった分を引けば3次元
+                S[x][y][z] = acc + S[x][y-1][z] + S[x-1][y][z] - S[x-1][y-1][z]
+
+    # クエリは包除原理、2次元の4項が3次元だと8項になる
+    # 引いた添字が奇数個ならマイナス、偶数個ならプラス
+    Q = int(input())
+    ans = []
+    for _ in range(Q):
+        lx, rx, ly, ry, lz, rz = map(int, input().split())
+        lx -= 1
+        ly -= 1
+        lz -= 1
+        ans.append(S[rx][ry][rz]
+                   - S[lx][ry][rz] - S[rx][ly][rz] - S[rx][ry][lz]
+                   + S[lx][ly][rz] + S[lx][ry][lz] + S[rx][ly][lz]
+                   - S[lx][ly][lz])
+
+    print("\n".join(map(str, ans)))
+    return
+
+main()

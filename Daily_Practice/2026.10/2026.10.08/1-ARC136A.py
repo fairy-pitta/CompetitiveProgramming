@@ -46,3 +46,33 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N = int(input())
+    S = input()
+
+    new_S = S.replace("A", "BB")
+
+    #print(new_S)
+
+    ans = ""
+    idx = 0
+    while True:
+        if idx == len(new_S):
+            break
+        if idx == len(new_S) - 1:
+            ans += new_S[idx]
+            break
+        if (new_S[idx] == "B" and new_S[idx+1] == 'B'):
+            ans += "A"
+            idx += 2 
+            
+        else:
+            ans += new_S[idx]
+            idx += 1
+
+    print(ans)
+        
+
+
+main()

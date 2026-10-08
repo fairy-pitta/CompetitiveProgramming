@@ -46,3 +46,32 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N, M = map(int, input().split())
+
+    # 電球ごとに、つながってるスイッチ番号を0-indexedで持っておく
+    bulbs = []
+    for _ in range(M):
+        k, *s = map(int, input().split())
+        bulbs.append([x-1 for x in s])
+
+    P = list(map(int, input().split()))
+
+    # N <= 10 なので 2^N = 1024通りしかない、全部試してOK
+    # product で (0,1) の組み合わせを順番に出してもらう
+    ans = 0
+    for switches in product((0, 1), repeat=N):
+        flag = True
+        for s, p in zip(bulbs, P):
+            # ONのスイッチの個数の偶奇が p と一致してれば点く
+            if sum(switches[i] for i in s) % 2 != p:
+                flag = False
+                break
+        if flag:
+            ans += 1
+
+    print(ans)
+    return
+
+main()

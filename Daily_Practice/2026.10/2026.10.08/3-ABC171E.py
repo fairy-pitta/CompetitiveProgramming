@@ -46,3 +46,25 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+
+    # 答えを x_i、全体のXORを S = x_1^...^x_N とおくと
+    # a_i は自分以外の全部のXORなので a_i = S ^ x_i  (同じ数を2回XORすると消える)
+    #
+    # S は答えから作る値なので直接は分からないけど、a を全部XORすると
+    #   (S^x_1)^(S^x_2)^...^(S^x_N) = (Sが N個) ^ (x_1^...^x_N) = 0 ^ S = S
+    # N が偶数だから S が消えてくれる。つまり a の全XORがそのまま S
+    S = 0
+    for a in A:
+        S ^= a
+
+    # a_i = S ^ x_i を x_i について解くと x_i = S ^ a_i
+    ans = [S ^ a for a in A]
+
+    print(*ans)
+    return
+
+main()
