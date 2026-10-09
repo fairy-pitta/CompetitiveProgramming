@@ -46,3 +46,21 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    S = input()
+    l = []
+    for i in S:
+        if not l:
+            l.append(i)
+        else:
+            if l[-1] == "0" and i == "1":
+                l.pop(-1)
+            elif l[-1] == "1" and i == "0":
+                l.pop(-1)
+            else:
+                l.append(i)
+
+    print(len(S)-len(l))
+
+main()
