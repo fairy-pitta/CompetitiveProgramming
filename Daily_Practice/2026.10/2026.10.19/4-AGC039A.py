@@ -46,3 +46,43 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    S = input()
+    K = int(input())
+
+    # 同じ文字がL個続いてるところは、1個飛ばしで書き換えれば隣が同じにならないのでL//2回
+    # 真ん中のランはK回出てくるだけなのでK倍
+    # 左端と右端は連結したときにくっついて1本のランになるので、そこだけ別で数える
+    # くっつく箇所はK個じゃなくてK-1個なので注意
+
+    runs = []
+    cnt = 1
+    for i in range(1, len(S)):
+        if S[i] == S[i-1]:
+            cnt += 1
+        else:
+            runs.append(cnt)
+            cnt = 1
+    runs.append(cnt)
+
+    if len(runs) == 1:
+        print(len(S)*K//2)
+        return
+
+    head = runs[0]
+    tail = runs[-1]
+
+    middle = 0
+    for l in runs[1:-1]:
+        middle += l//2
+
+    if S[0] != S[-1]:
+        print((head//2 + middle + tail//2) * K)
+        return
+
+    ans = middle*K + head//2 + tail//2 + (head+tail)//2 * (K-1)
+    print(ans)
+    return
+
+main()

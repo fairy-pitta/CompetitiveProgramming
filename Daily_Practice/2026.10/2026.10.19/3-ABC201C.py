@@ -46,3 +46,31 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    s = input()
+    confirmed = [str(i) for i in range(10) if s[i] == 'o']   
+    allowed = {str(i) for i in range(10) if s[i] != 'x'}   
+
+    ans = 0
+    for n in range(10000):
+        pin = f"{n:04d}"
+        ok = True
+
+        for c in confirmed:        
+            if c not in pin:
+                ok = False
+                break
+
+        if ok:
+            for d in pin:         
+                if d not in allowed:
+                    ok = False
+                    break
+
+        if ok:
+            ans += 1
+
+    print(ans)
+
+main()

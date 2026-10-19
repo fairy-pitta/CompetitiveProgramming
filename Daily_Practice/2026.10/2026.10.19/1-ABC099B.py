@@ -46,3 +46,9 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    a, b = map(int, input().split())
+    diff = b - a 
+    print((diff+1)*diff//2-b)
+main()

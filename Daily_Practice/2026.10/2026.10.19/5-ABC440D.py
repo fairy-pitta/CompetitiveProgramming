@@ -46,3 +46,36 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+
+def main():
+    input = sys.stdin.readline
+    N, Q = map(int, input().split())
+    A = sorted(list(map(int, input().split())))
+
+    # 値が10**9まであるので使える数を並べたリストは作れない
+    # なので「X以上でY番目」を「1から数えてT番目」に言い換える
+    # X未満にある使える数の個数をYに足しておけば、Xのことは忘れていい
+
+    # d[i] = A[i] - (i+1) = 1からA[i]までにある使える数の個数
+    # Aはソート済みで全部違う数だからdは単調非減少、つまりにぶたんできる
+    d = []
+    for i in range(N):
+        d.append(A[i] - (i+1))
+
+    ans = []
+    for _ in range(Q):
+        X, Y = map(int, input().split())
+        # bisect_leftでX未満のAの個数が出るので、X-1までの使える数の個数はこれ
+        used = (X-1) - bisect_left(A, X)
+        T = Y + used
+
+        # T番目の使える数は、それより小さいAの個数kのぶん後ろにずれる
+        # kはd[i] < Tになるiの個数なので、そのままbisect_left
+        k = bisect_left(d, T)
+        ans.append(T + k)
+
+    print("\n".join(map(str, ans)))
+    return
+
+main()
