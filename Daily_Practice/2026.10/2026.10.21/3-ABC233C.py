@@ -46,3 +46,26 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N, X = map(int, input().split())
+
+    cur = [1]                       
+    for i in range(N):
+        L = list(map(int, input().split()))
+        nxt = []
+        for p in cur:
+            for a in L[1:]:        
+                if X % (p * a) == 0:
+                    nxt.append(p * a)
+        cur = nxt
+
+    ans = 0
+    for p in cur:
+        if p == X:
+            ans += 1
+
+    print(ans)
+    return
+
+main()

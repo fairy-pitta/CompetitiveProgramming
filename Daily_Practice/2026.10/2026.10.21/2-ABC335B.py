@@ -46,3 +46,14 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N = int(input())
+    for i in range(N+1):
+        for j in range(N+1):
+            for k in range(N+1):
+                if i+j+k <= N:
+                    print(i, j, k)
+
+    return 
+main()

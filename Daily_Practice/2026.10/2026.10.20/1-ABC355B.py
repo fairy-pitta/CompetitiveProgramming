@@ -46,3 +46,24 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N, M = map(int, input().split())
+    A = list(map(int, input().split()))
+    B = list(map(int, input().split()))
+    C = sorted(A + B)
+    As = set(A)
+    Bs = set(B)
+    flag = False 
+
+    for i in range(N+M-1):
+        if C[i] in As and C[i+1] in As:
+            flag = True 
+
+    if flag:
+        print("Yes")
+    else:
+        print("No")
+    return 
+
+main()
