@@ -1,3 +1,33 @@
+"""SortedMultiset: 同じ値を何個でも入れられる、常にソートされた多重集合。
+
+    s = SortedMultiset([3, 1, 4, 1, 5])   # {1, 1, 3, 4, 5} (重複もそのまま持つ)
+    s.add(1)                               # {1, 1, 1, 3, 4, 5}。戻り値は無し
+    s.count(1)         ->  3
+    s.discard(1)                           # True。1 を「1 個だけ」消す
+    s.ge(2)            ->  3               # 2 以上で最小。無ければ None
+    s[0], s[-1]        ->  1, 5            # 最小値・最大値
+
+出典: tatyam さんの SortedMultiset (Unlicense) の旧版。下のコードは出典のまま。
+https://github.com/tatyam-prime/SortedSet
+
+sorted_set.py (SortedSet) との違い:
+    - SortedSet      : 重複なし。add は「新しく入ったか」を True / False で返す
+    - SortedMultiset : 重複あり。add は常に追加する (戻り値なし)。count(x) で個数がわかる
+    「今いる人の点数の中央値 / 最大値を、出入りがあるたびに答える」のような、
+    同じ値が何個も入りうる場面ではこちらを使う。
+
+メソッド一覧 (計算量はすべて O(√N) 程度):
+    len(s) / x in s / for x in s     : 要素数・存在判定・小さい順に列挙
+    s.add(x)                         : x を 1 個追加 (既にあっても追加する)
+    s.discard(x)                     : x を 1 個だけ削除。削除できたら True、無ければ False
+    s.count(x)                       : x の個数
+    s.lt(x) / s.le(x)                : x より小さい (以下の) 最大の要素。無ければ None
+    s.gt(x) / s.ge(x)                : x より大きい (以上の) 最小の要素。無ければ None
+    s[i]                             : 小さい方から i 番目 (0-indexed、負の数も可)
+    s.index(x) / s.index_right(x)    : x 未満 / x 以下 の要素の個数
+
+仕組み: SortedSet と同じ平方分割。ソート済みの短いリスト (バケット) を並べて持つ。
+"""
 # https://github.com/tatyam-prime/SortedSet/blob/main/SortedMultiset.py
 import math
 from bisect import bisect_left, bisect_right, insort
@@ -129,24 +159,3 @@ class SortedMultiset(Generic[T]):
                 return ans + bisect_right(a, x)
             ans += len(a)
         return ans
-    
-    # a multiset version of the SortedSet. 
-    # it can contain multiple same leafs 
-
-    # SortedMultiSet(a = []) : create SotedMultiSet from iterable. 
-    # No overlaps and sorted 
-    # s.a : show the content of the SortedSet 
-    # len(s) : returns the number of leafs in the set 
-    # x in s / x not in s : return a boolean 
-    # s.add(x) : if x is not in s then add x and returns True 
-    # s.discard(x) : if x in s then delete x and return True
-    # s.lt(x) / s.le(x) / s.gt(x) / s.ge(x) : returns a min/max leaf that is less/greater than/or equal to x.
-    # if such leaf does not exist, return None
-    # s[x] : indexing 
-    # s.index[x] : return the number of leafs less than x 
-    # if x in s then returns the index of x 
-    # s.index_right[x] : index but right 
-    # add-ons 
-    # s.add(x) : adds x to s whether or not x is in s 
-    # s.discard(x) : delete x once if x in s and returns True 
-    # s.count(x) : count the number of x in s 
