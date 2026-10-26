@@ -45,11 +45,11 @@ AtCoder を中心とした競技プログラミングの記録。Python 3.11。
 | `numeric/factorize.py` | `factorize(N)`: 素因数分解。`[[素数, 指数], ...]` を返す。`12 -> [[2, 2], [3, 1]]` | O(√N) |
 | `numeric/primes.py` | エラトステネスの篩。0〜N の素数判定表、N 以下の素数の列挙 | O(N log log N) |
 | `numeric/lcm.py` | 最小公倍数 | O(log N) |
-| `numeric/cmb.py` | 二項係数 nCr を多倍長整数で（mod なし。n <= 1 で 0 を返す点に注意） | O(r) |
+| `numeric/cmb.py` | 二項係数 nCr を多倍長整数で（mod なし。r < 0 や r > n は 0） | O(r) |
 | `numeric/modint.py` | MOD で割った余りを自動で保つ整数クラス | O(1) / 割り算 O(log MOD) |
 | `numeric/notation.py` | 10 進数と b 進数 (b <= 10) の変換 | O(桁数) |
 | `graph/dijkstra.py` | 重み 0 以上のグラフの単一始点最短距離 | O((N+M) log N) |
-| `graph/dijkstra_max_jump.py` | ダイクストラ + 辺の本数と直前の頂点を記録、経路復元 | O((N+M) log N) |
+| `graph/dijkstra_max_jump.py` | ダイクストラ + 最短経路のうち辺数最大のものを選び、経路復元 | O((N+M) log N) |
 | `graph/bfs_2d.py` | ABC276E 専用のグリッド BFS（S を通る閉路判定） | O(HW) |
 | `graph/unionfind.py` | Union-Find。グループの合体と同じグループか判定 | ほぼ O(1) |
 | `graph/tree_diameter.py` | 木の直径（BFS を 2 回） | O(N) |

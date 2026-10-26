@@ -16,7 +16,8 @@
 注意:
     - MOD はグローバル変数。1000000007 を使う問題では下のコメントを切り替える。
     - 割り算は MOD が素数で、割る数が MOD の倍数でないときだけ正しい。
-    - == を定義していないので ModInt(3) == 3 は False になる。比較は a.x == 3 と書く。
+    - == は余りどうしで比べる。ModInt(3) == 3、ModInt(MOD + 3) == ModInt(3) はどちらも True。
+      < などの大小比較は定義していない (余りの大小に意味が無いため)。
     - クラスなので素の int で % MOD するより数倍遅い。ループが 10^6 回を超えるなら素の int も検討。
 """
 # https://qiita.com/wotsushi/items/c936838df992b706084c
@@ -33,6 +34,16 @@ class ModInt:
         return str(self.x)
 
     __repr__ = __str__
+
+    def __eq__(self, other):
+        return (
+            self.x == other.x if isinstance(other, ModInt) else
+            self.x == other % MOD
+        )
+
+    # __eq__ を定義すると hash が消えるので、set や dict のキーに使えるよう戻す
+    def __hash__(self):
+        return hash(self.x)
 
     # 以下、相手 other が ModInt でも int でも動くように分岐している
 
