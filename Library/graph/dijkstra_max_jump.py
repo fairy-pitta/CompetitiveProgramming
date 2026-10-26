@@ -9,18 +9,22 @@ dijkstra.py との違い:
     dijkstra.py は距離だけを返す。こちらは dist[v] = [距離, 辺の本数, 直前の頂点] を返すので、
     get_path で実際の経路をたどれる。最短距離だけでよいなら dijkstra.py で十分。
 
-引数・前提: dijkstra.py と同じ (s は 0-indexed の始点、重みは 0 以上)。
+最短経路が複数あるときは、その中で辺の本数が最大のものを選ぶ (ファイル名の max jump)。
+最小にしたいときは、更新条件の nj > dist[v2][1] を nj < dist[v2][1] に変えるだけでよい。
+
+引数: dijkstra.py と同じ (s は 0-indexed の始点)。
+前提: 辺の重みは 1 以上。
+    重み 0 の辺があっても最短距離そのものは正しいが、辺数が最大になる保証はなくなる
+    (重み 0 の閉路があると辺数はいくらでも増やせるので、そもそも最大が定まらない)。
 
 仕組み:
-    更新するときに「どこから来たか (prev)」を一緒に記録しておく。
+    更新するときに「どこから来たか (prev)」と辺の本数を一緒に記録しておく。
+    v を経由すると (1) 今より短くなる、または (2) 距離は同じで辺の本数が増える、なら上書きする。
+    重みが正なら、v2 より距離の小さい頂点はすべて v2 より先にヒープから出てくるので、
+    v2 を取り出した時点で v2 への最短経路の候補はすべて比べ終わっている。
     ゴールから prev をたどって始点 (prev = -1) まで戻り、反転すれば始点からの経路になる。
-    距離の比較が <= なので、同じ距離の経路が見つかったときも上書きする。
 
-注意:
-    - ファイル名は「max jump」だが、同じ距離の経路が複数あるとき「後から見つかった方」で
-      上書きするだけで、辺の本数が最大になる保証はない。辺数の最大/最小が問題の条件なら、
-      ヒープのキーを (距離, ±辺数) にするなど比較を自分で書き直すこと。
-    - たどり着けない頂点は dist[v][0] が INF のまま。get_path はその頂点 1 つだけを返す。
+注意: たどり着けない頂点は dist[v][0] が INF のまま。get_path はその頂点 1 つだけを返す。
 
 計算量: O((N + M) log N)。get_path は経路の長さ分。
 """
@@ -61,27 +65,29 @@ def dijkstra(s, N, graph):
     # start
     dist[s][0] = 0
     seen = isseen(N)
-    heap_q = PriorityQueue() # (distance, node, jumps)
-    heap_q.push((0, s, 0))
+    heap_q = PriorityQueue() # (distance, node)
+    heap_q.push((0, s))
 
     while heap_q:
-        # first just needed for heap to sort the nodes
-        # nodes (v) is needed to record the vectors
-        #
-        _ , v, jump = heap_q.pop()
+        _ , v = heap_q.pop()
+        # 同じ頂点が何度も積まれることがあるので、2 回目以降は捨てる
+        if seen[v]:
+            continue
         seen[v] = True
         for adjacent_node in graph[v]:
             v2, cost = adjacent_node[0], adjacent_node[1]
-            if not seen[v2] \
-                and dist[v][0] + cost <= dist[v2][0]:
-                # if all and all
-                    # update the cost
-                    dist[v2][0] = dist[v][0] + cost
-                    # jump
-                    dist[v2][1] = jump + 1
-                    # prev vector
-                    dist[v2][2] = v
-                    heap_q.push((dist[v2][0], v2, dist[v2][1]))
+            if seen[v2]:
+                continue
+            # v を経由したときの距離と辺の本数
+            nd = dist[v][0] + cost
+            nj = dist[v][1] + 1
+            # 短くなる、または同じ距離で辺が増えるなら上書き
+            if nd < dist[v2][0] or (nd == dist[v2][0] and nj > dist[v2][1]):
+                dist[v2][0] = nd
+                dist[v2][1] = nj
+                # prev vector
+                dist[v2][2] = v
+                heap_q.push((nd, v2))
 
     return dist
 
