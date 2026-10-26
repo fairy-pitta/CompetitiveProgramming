@@ -1,3 +1,40 @@
+"""SortedSet: 重複なしで常にソートされた集合。追加・削除・「x 以上で最小」の検索ができる。
+
+    s = SortedSet([3, 1, 4, 1, 5])   # {1, 3, 4, 5} (重複は 1 つにまとまる)
+    s.add(2)                          # True  (追加された)
+    s.add(3)                          # False (もうある)
+    s.discard(4)                      # True  (削除された)
+    3 in s             ->  True
+    s.ge(4)            ->  5          # 4 以上で最小。無ければ None
+    s.lt(1)            ->  None       # 1 未満で最大。無ければ None
+    s[0], s[-1]        ->  1, 5       # 小さい方から 0 番目、一番大きい要素
+    s.index(3)         ->  2          # 3 未満の要素の数 (= 3 が何番目か)
+
+出典: tatyam さんの SortedSet (Unlicense) の旧版。下のコードは出典のまま。
+https://github.com/tatyam-prime/SortedSet
+
+使い分け:
+    - 同じ値を何個も入れたい → multiset.py (SortedMultiset)
+    - 最小値の取り出しだけでよい → priority_queue.py (heapq) の方が速い
+    - 標準の set は「x 以上で最小」を探せない。それが必要なときにこれを使う
+
+メソッド一覧 (計算量はすべて O(√N) 程度):
+    len(s) / x in s / for x in s     : 要素数・存在判定・小さい順に列挙
+    s.add(x)                         : x を追加。追加できたら True、既にあれば False
+    s.discard(x)                     : x を削除。削除できたら True、無ければ False
+    s.lt(x) / s.le(x)                : x より小さい (以下の) 最大の要素。無ければ None
+    s.gt(x) / s.ge(x)                : x より大きい (以上の) 最小の要素。無ければ None
+    s[i]                             : 小さい方から i 番目 (0-indexed、負の数も可)
+    s.index(x) / s.index_right(x)    : x 未満 / x 以下 の要素の個数
+
+仕組み:
+    1 本のソート済みリストに insert すると O(N) かかるので、長さ √N 程度の
+    ソート済みリスト (バケット) を何本も並べて持つ (平方分割)。
+    どのバケットに入るかを先頭から探し、そのバケットの中で bisect する。
+    バケットが長くなりすぎたら全体を組み直す (_build)。
+
+注意: 中身の数が 0 個のとき、ge / gt などは None を返す。None チェックを忘れないこと。
+"""
 # https://github.com/tatyam-prime/SortedSet/blob/main/SortedSet.py
 import math
 from bisect import bisect_left, bisect_right
@@ -128,28 +165,3 @@ class SortedSet(Generic[T]):
                 return ans + bisect_right(a, x)
             ans += len(a)
         return ans
-
-    # SortedSet(a = []) : create SotedSet from iterable. 
-    # No overlaps and sorted 
-
-    # s.a : show the content of the SortedSet 
-
-    # len(s) : returns the number of leafs in the set 
-
-    # x in s / x not in s : return a boolean 
-
-    # s.add(x) : if x is not in s then add x and returns True 
-
-    # s.discard(x) : if x in s then delete x and return True
-
-    # s.lt(x) / s.le(x) / s.gt(x) / s.ge(x) : returns a min/max leaf that is less/greater than/or equal to x.
-    # if such leaf does not exist, return None
-
-    # s[x] : indexing 
-
-    #s.index[x] : return the number of leafs less than x 
-    # if x in s then returns the index of x 
-
-    # s.index_right[x] : index but right 
-
-    
