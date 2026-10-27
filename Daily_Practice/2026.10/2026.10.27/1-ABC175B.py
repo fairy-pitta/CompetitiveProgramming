@@ -46,3 +46,18 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N = int(input())
+    L = sorted(list(map(int, input().split())))
+    cnt = 0
+    for i in range(N-2):
+        for j in range(i, N-1):
+            for k in range(k, N-2):
+                if abs(L[i]-L[j]) < L[k] < abs(L[i]+L[j]):
+                    cnt += 1
+
+    print(cnt)
+    return 
+
+main()

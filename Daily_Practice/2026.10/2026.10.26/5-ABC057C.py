@@ -46,3 +46,28 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def calc_divisors(N) -> list:
+    ans = 10**9+1
+
+    for i in range(1, N+1):
+        if i * i > N:
+            break 
+
+        if N % i != 0:
+            continue 
+
+        div1 =i 
+        div2 = N // i
+
+        ans = min(ans, max(len(str(div1)), len(str(div2))))
+
+
+    return ans
+
+def main():
+    N = int(input())
+    print(calc_divisors(N))
+    return 
+
+main()

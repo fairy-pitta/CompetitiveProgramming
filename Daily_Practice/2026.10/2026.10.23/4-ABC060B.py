@@ -46,3 +46,16 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    A, B, C = map(int, input().split())
+
+    for i in range(1, 10**5):
+        if not (B*i+C) % A:
+            print("YES")
+            return 
+
+    print("NO")
+    return 
+
+main()

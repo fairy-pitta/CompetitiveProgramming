@@ -46,3 +46,14 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N = int(input())
+    ans = 0 
+    for i in range(1, N+1):
+        if len(str(i)) % 2:
+            ans += 1
+
+    print(ans)
+    return 
+main()

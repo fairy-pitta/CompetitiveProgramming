@@ -46,3 +46,23 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N, M = map(int, input().split())
+    taken = set()
+    for _ in range(N):
+        l = int(input())
+        x = list(map(int, input().split()))
+        can = False
+        for juice in x:
+            if juice not in taken:
+                print(juice)
+                taken.add(juice)
+                can = True 
+                break
+        if not can:
+            print(0)
+
+    return 
+main()
+        

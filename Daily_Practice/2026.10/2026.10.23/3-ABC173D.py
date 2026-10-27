@@ -45,4 +45,20 @@ def isseen(N): return [False] * N
 ## 定数
 # MOD = 998244353
 # MOD = 1000000007
-# INF = 10 ** 18 + 1
+INF = 10 ** 18 + 1
+
+def main():
+    N = int(input())
+    A = sorted(map(int, input().split()), reverse=True)
+    gaps = [-A[0]]
+    ans = 0
+    for x in A[1:]:
+        ans += -heapq.heappop(gaps)
+        # 隙間 (a, b) が (a, x), (x, b) に分かれ、どちらも min は x
+        heapq.heappush(gaps, -x)
+        heapq.heappush(gaps, -x)
+    print(ans)
+
+
+main()
+
