@@ -16,7 +16,7 @@ import sys
 
 ## 入力ヘルパー
 # 大量入力のときは input を差し替える
-# def input(): return sys.stdin.readline().rstrip("\n")
+def input(): return sys.stdin.readline().rstrip("\n")
 def isint(): return int(input())
 def ismap(): return map(int, input().split())
 def issmap(): return map(str, input().split())
@@ -45,4 +45,64 @@ def isseen(N): return [False] * N
 ## 定数
 # MOD = 998244353
 # MOD = 1000000007
-# INF = 10 ** 18 + 1
+INF = 10 ** 18 + 1
+
+class PriorityQueue:
+    def __init__(self):
+        self._container = []
+
+    def push(self, x):
+        heapq.heappush(self._container, x)
+
+    def pop(self):
+        return heapq.heappop(self._container)
+
+    def __len__(self):
+        return len(self._container)
+
+
+def dijkstra(s, N, graph):
+    # 始点から各頂点への最短距離
+    dist = isdist(N, INF)
+    # 始点
+    dist[s] = 0
+    # 訪問済みかどうか
+    seen = isseen(N)
+    seen[s] = True 
+    #　仮の距離を記録するヒープ
+    heap_q = PriorityQueue() # (distance, node)
+    heap_q.push((0, s))
+
+    while heap_q:
+        _ , v = heap_q.pop()
+        seen[v] = True 
+        for v2, cost in graph[v]:
+            if not seen[v2] and dist[v] + cost < dist[v2]:
+                dist[v2] = dist[v] + cost 
+                heap_q.push((dist[v2], v2))
+    
+    return dist
+
+
+def main():
+    N, M, K = ismap()
+    graph = isgraph(2 * N)
+    for _ in range(M):
+        u, v, a = ismap()
+        u -= 1
+        v -= 1
+        # 押される前の頂点と押した後の頂点を区別するために、Nを足して長さ２Nの頂点群にする
+        layer = (1 - a) * N
+        graph[u + layer].append((v + layer, 1))
+        graph[v + layer].append((u + layer, 1))
+    for v in iszero():
+        off, on = v, v + N  
+        graph[off].append((on, 0)) 
+        graph[on].append((off, 0))
+
+    dist = dijkstra(0, 2 * N, graph)
+    ans = min(dist[N - 1], dist[2 * N - 1])
+    print(ans if ans < INF else -1)
+
+
+main()
