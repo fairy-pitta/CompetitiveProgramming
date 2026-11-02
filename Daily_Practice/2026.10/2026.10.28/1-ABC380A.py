@@ -46,3 +46,11 @@ def isseen(N): return [False] * N
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N = int("".join(sorted(list(str(input())))))
+    if N == 122333:
+        print("Yes")
+    else:
+        print("No")
+main()
