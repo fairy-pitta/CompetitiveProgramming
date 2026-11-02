@@ -48,3 +48,32 @@ def isseen(N): return [False] * N                       # 訪問済みフラグ
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N, K = map(int, input().split())
+    A = list(map(int, input().split()))
+
+    # 全要素を x 以上にするのに必要な操作回数が K 以下か
+    def is_ok(x):
+        cnt = 0
+        for i, a in enumerate(A, 1):
+            if a < x:
+                cnt += my_ceil(x - a, i)
+                if cnt > K:
+                    return False
+        return True
+
+    # めぐる式二分探索: ok は常に条件を満たし、ng は常に満たさない
+    ok = min(A)          # 操作 0 回で達成できる
+    ng = A[0] + K + 1    # A_1 は最大でも A_1 + K にしかならない
+    while abs(ok - ng) > 1:
+        mid = (ok + ng) // 2
+        if is_ok(mid):
+            ok = mid
+        else:
+            ng = mid
+    print(ok)
+
+
+main()
+

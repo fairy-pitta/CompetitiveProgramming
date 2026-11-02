@@ -48,3 +48,31 @@ def isseen(N): return [False] * N                       # 訪問済みフラグ
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+
+# 数列内の総和は変わらない！！
+
+def main():
+    N = int(input())
+    A = sorted(list(map(int, input().split())))
+    sum_A = sum(A)
+    # 下の数字が何になるか
+    lower_num = sum(A) // N
+    # 下の数字が何個必要か
+    lower_cnt = N - sum(A) % N
+
+    cnt = 0
+
+    for i in range(N):
+        if i < lower_cnt:
+            cnt += abs(lower_num - A[i])    
+        else:
+            cnt += abs(A[i] - (lower_num+1))
+
+    print(cnt // 2)
+
+main()
+
+    
+
+

@@ -48,3 +48,13 @@ def isseen(N): return [False] * N                       # 訪問済みフラグ
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    N = int(input())
+    A = set(map(int, input().split()))
+    if len(A) == N:
+        print("Yes")
+    else:
+        print("No")
+
+main()

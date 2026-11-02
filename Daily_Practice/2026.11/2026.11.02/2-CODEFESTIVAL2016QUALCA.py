@@ -48,3 +48,23 @@ def isseen(N): return [False] * N                       # 訪問済みフラグ
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+
+def main():
+    s = input()
+    c = 10**18
+    f = -1 
+
+    for i in range(len(s)):
+        if s[i] == "C":
+            c = min(c, i)
+        if s[i] == 'F':
+            f = max(f, i)
+
+
+    if c < f:
+        print("Yes")
+    else:
+        print("No")
+
+main()

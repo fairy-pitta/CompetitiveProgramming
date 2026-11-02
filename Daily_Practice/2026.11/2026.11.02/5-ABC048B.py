@@ -48,3 +48,16 @@ def isseen(N): return [False] * N                       # 訪問済みフラグ
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+
+def main():
+    a, b, x = map(int, input().split())
+    # aより小さいxの倍数
+    la = (a-1) // x
+
+    #b以下のxの倍数
+    lb = b // x 
+
+    print(lb-la)
+
+main()
