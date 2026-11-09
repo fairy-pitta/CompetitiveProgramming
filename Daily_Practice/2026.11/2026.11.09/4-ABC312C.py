@@ -48,3 +48,29 @@ def isseen(N): return [False] * N                       # 訪問済みフラグ
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+
+def ok(X, A, B):
+    """価格 X で「売ってもいい人数 >= 買ってもいい人数」になるか"""
+    sellers = bisect_right(A, X)            # A_i <= X の人数
+    buyers = len(B) - bisect_left(B, X)     # B_i >= X の人数
+    return sellers >= buyers
+
+
+def main():
+    N, M = ismap()
+    A = sorted(ismap())
+    B = sorted(ismap())
+
+    ng = 0
+    hi = 10 ** 9 + 1
+    while hi - ng > 1:
+        mid = (ng + hi) // 2
+        if ok(mid, A, B):
+            hi = mid
+        else:
+            ng = mid
+    print(hi)
+
+
+main()

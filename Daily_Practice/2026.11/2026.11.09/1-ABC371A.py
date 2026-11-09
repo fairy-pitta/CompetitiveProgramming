@@ -48,3 +48,29 @@ def isseen(N): return [False] * N                       # 訪問済みフラグ
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    ab, ac, bc = map(str, input().split())
+    abc = [0, 0, 0]
+    if ab == '<':
+        abc[1] += 100
+    else:
+        abc[0] += 100
+    if ac == "<":
+        abc[2] += 100
+    else:
+        abc[0] += 100
+    if bc == "<":
+        abc[2] += 100 
+    else:
+        abc[1] += 100
+
+    # print(abc)
+    for i in range(3):
+        if abc[i] != min(abc) and abc[i] != max(abc):
+            print(["A","B","C"][i])
+            return 
+
+main()
+        
+

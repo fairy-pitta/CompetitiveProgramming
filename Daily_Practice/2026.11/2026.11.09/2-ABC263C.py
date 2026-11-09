@@ -48,3 +48,19 @@ def isseen(N): return [False] * N                       # 訪問済みフラグ
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    n, m = ismap()
+    s = set()
+    l = permutations(range(1,m+1), n)
+    # print(list(l))
+    for i in l:
+        j = sorted(list(i))
+        s.add(tuple(j))
+
+    s = sorted(list(s))
+    for k in s:
+        k = list(k)
+        print(*k)
+
+main()
