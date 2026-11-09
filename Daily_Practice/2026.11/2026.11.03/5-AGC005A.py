@@ -48,3 +48,24 @@ def isseen(N): return [False] * N                       # 訪問済みフラグ
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+def main():
+    x = input()
+    q = deque([])
+    q.append(x[0])
+    for i in x[1:]:
+        if q:
+            first = q.pop()
+            second = i
+            if first == "S" and second == "T":
+                continue 
+            else:
+                q.append(first)
+                q.append(i)
+        else:
+            q.append(i)
+
+    print(len(q))
+
+main()
+
