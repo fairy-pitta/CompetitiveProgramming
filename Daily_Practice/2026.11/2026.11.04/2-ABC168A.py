@@ -48,3 +48,27 @@ def isseen(N): return [False] * N                       # 訪問済みフラグ
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+# #####
+# N の 
+# 1 の位が 
+# 2,4,5,7,9 のとき hon
+# N の 
+# 1 の位が 
+# 0,1,6,8 のとき pon
+# N の 
+# 1 の位が 
+# 3 のとき bon
+# #####
+
+def main():
+    n = input()[-1]
+    if n == "3":
+        print("bon")
+    elif n in {"0", "1", "6", "8"}:
+        print("pon")
+    else:
+        print("hon")
+    return 
+
+main()
