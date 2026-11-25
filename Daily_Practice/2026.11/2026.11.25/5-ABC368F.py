@@ -48,3 +48,25 @@ def isseen(N): return [False] * N                       # 訪問済みフラグ
 # MOD = 998244353
 # MOD = 1000000007
 # INF = 10 ** 18 + 1
+
+
+# 1 回の操作は素因数 (重複込み) を 1 個以上取り除くことに等しい
+# → 素因数の個数 k の山の Nim になり、Grundy 数は k
+N = isint()
+A = list(ismap())
+M = max(A)
+spf = list(range(M + 1))   # 最小素因数
+for p in range(2, int(M ** 0.5) + 1):
+    if spf[p] == p:
+        for q in range(p * p, M + 1, p):
+            if spf[q] == q:
+                spf[q] = p
+
+x = 0
+for a in A:
+    k = 0
+    while a > 1:
+        a //= spf[a]
+        k += 1
+    x ^= k
+print("Anna" if x else "Bruno")
