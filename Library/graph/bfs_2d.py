@@ -19,7 +19,7 @@ https://atcoder.jp/contests/abc276/tasks/abc276_e
     S の隣から BFS し、S に戻ってこられたら閉路がある。dist は S から数えた歩数で、
     出発マスが 1。戻るときに dist + 1 < 4 (= 隣からすぐ S に戻るだけ) の場合は除外する。
 
-汎用のグリッド BFS (最短距離) にしたいときのひな形:
+汎用のグリッド BFS (最短距離) は bfs.py の bfs_grid を使う。ひな形:
     dist = [[-1] * W for _ in range(H)]; dist[sy][sx] = 0; q = deque([(sy, sx)])
     while q: 取り出して上下左右を見て、範囲内・壁でない・dist == -1 なら dist を +1 して積む
 

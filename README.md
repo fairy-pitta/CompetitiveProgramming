@@ -11,7 +11,7 @@ AtCoder を中心とした競技プログラミングの記録。Python 3.11。
 | `Contest/` | コンテスト本番の提出コード | 34コンテスト / 172ファイル |
 | `Daily_Practice/` | 日々の練習ログ（日付単位） | 2022.05〜2026.09 / 160日 / 532ファイル |
 | `Practice/` | 教材単位の演習 | 267ファイル |
-| `Library/` | 貼り付け用スニペット | 23ファイル |
+| `Library/` | 貼り付け用スニペット | 26ファイル |
 | `Archive/` | 更新の止まった置き場 | 17ファイル |
 
 ## 命名規則
@@ -50,6 +50,8 @@ AtCoder を中心とした競技プログラミングの記録。Python 3.11。
 | `numeric/notation.py` | 10 進数と b 進数 (b <= 10) の変換 | O(桁数) |
 | `graph/dijkstra.py` | 重み 0 以上のグラフの単一始点最短距離 | O((N+M) log N) |
 | `graph/dijkstra_max_jump.py` | ダイクストラ + 最短経路のうち辺数最大のものを選び、経路復元 | O((N+M) log N) |
+| `graph/bfs.py` | BFS。重みなしグラフ / グリッドの単一始点最短距離 | O(N+M) / O(HW) |
+| `graph/dfs.py` | DFS。到達判定・連結成分の個数（スタック版と再帰版） | O(N+M) |
 | `graph/bfs_2d.py` | ABC276E 専用のグリッド BFS（S を通る閉路判定） | O(HW) |
 | `graph/unionfind.py` | Union-Find。グループの合体と同じグループか判定 | ほぼ O(1) |
 | `graph/tree_diameter.py` | 木の直径（BFS を 2 回） | O(N) |
@@ -62,6 +64,7 @@ AtCoder を中心とした競技プログラミングの記録。Python 3.11。
 | `misc/meguru_bisect.py` | めぐる式二分探索（ng / ok の境目を探す） | O(log 範囲) |
 | `misc/coordinates.py` | 点の回転 | O(1) |
 | `misc/iscolinear.py` | 3 点が一直線上か（外積） | O(1) |
+| `misc/next_permutation.py` | 辞書順で次の並びに進める。同じ文字があっても重複せずに順列を全列挙 | 1 回 O(N) |
 | `misc/bit_search.py` | bit 全探索の書き方の見本（ABC249C の解答） | O(2^N) |
 
 迷いやすい組み合わせ:
@@ -69,6 +72,8 @@ AtCoder を中心とした競技プログラミングの記録。Python 3.11。
 - `divisors` と `factorize`: 約数そのものがほしいなら `calc_divisors`、素数と指数がほしいなら `factorize`
 - `sorted_set` と `multiset`: 同じ値を何個も入れるなら `multiset`
 - `dijkstra` と `dijkstra_max_jump`: 経路の復元や辺数が要るときだけ `dijkstra_max_jump`
+- `bfs` と `dfs`: 最短距離がほしいなら `bfs`、たどり着けるかや帰りがけ処理だけなら `dfs`
+- `next_permutation` と `itertools.permutations`: 同じ文字があって重複を数えたくないなら `next_permutation`
 - `priority_queue` と `sorted_set`: 最小値を取り出すだけなら `priority_queue`、任意の値の削除や「x 以上で最小」が要るなら `sorted_set`
 
 ### 生成 AI に関するルールへの対応
